@@ -14,3 +14,24 @@ RUN source /root/.bashrc
 RUN apt update && apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential -y
 RUN rosdep init
 RUN rosdep update
+
+# Clone and build the auv workspace.
+RUN --mount=type=secret,id=gh_access_auvws                                                                 \
+    && mkdir -p ~/auv_ws/src                                                                               \
+    && cd ~/auv_ws/src                                                                                     \
+    && mkdir -p ~/auv_ws/src/robots                                                                        \
+    && mkdir -p ~/auv_ws/src/actuators                                                                     \
+    && git clone https://github.com/ufrj-nautilus/gripper.git ~/auv_ws/src/actuators/gripper               \
+    && git clone https://github.com/ufrj-nautilus/marker_dropper.git ~/auv_ws/src/actuators/marker_dropper \
+    && git clone https://github.com/ufrj-nautilus/torpedo.git ~/auv_ws/src/actuators/torpedo               \
+    && git clone https://github.com/ufrj-nautilus/auv_simulator.git                                        \
+    && git clone https://github.com/ufrj-nautilus/control.git                                              \
+    && git clone https://github.com/ufrj-nautilus/brhue.git ~/auv_ws/src/robots/brhue                      \
+    && git clone https://github.com/ufrj-nautilus/lua.git ~/auv_ws/src/robots/lua                          \
+    && git clone https://github.com/ufrj-nautilus/utils.git                                                \
+    && git clone https://github.com/ufrj-nautilus/auv_messages.git                                         \
+    && git clone https://github.com/ufrj-nautilus/localization.git                                         \
+    && git clone https://github.com/ufrj-nautilus/smach.git                                                \
+    && git clone --branch noetic-devel https://github.com/tdenewiler/uuv_simulator.git
+
+RUN cd ~/auv_ws && catkin_make
