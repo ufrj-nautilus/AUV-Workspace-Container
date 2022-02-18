@@ -1,6 +1,9 @@
 # Uses the Ubuntu 20.04 LTS (Focal Fossa) as the base image.
 FROM ubuntu:20.04
 
+# Shell to be used during this Docker build.
+SHELL ["/bin/bash", "-c"]
+
 # Update the system and install some essential packages.
 RUN apt update && apt upgrade -y
 RUN apt update && apt install -y gnupg wget lsb-release vim tmux open-ssh git libglvnd0 libglvnd-dev
@@ -35,3 +38,4 @@ RUN --mount=type=secret,id=AUV_WS_ACCESS                                        
     && git clone --branch noetic-devel https://github.com/tdenewiler/uuv_simulator.git
 
 RUN cd ~/auv_ws && catkin_make
+RUN echo "source /root/auv_ws/devel/setup.bash" >> /root/.bashrc
