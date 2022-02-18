@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+  auv_ws:
+    build: .
+    environment:
+      - DISPLAY=${DISPLAY} 
+    volumes:
+      - ./../../src:/root/catkin_ws/src
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    network_mode: host
+    stdin_open: true
+    tty: true
+    command: /bin/bash
