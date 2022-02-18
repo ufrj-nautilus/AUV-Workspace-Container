@@ -2,7 +2,7 @@ version: '3'
 services:
 
   auv_ws:
-    build: .
+    image: ghcr.io/ufrj-nautilus/auv_ws:master
     environment:
       - DISPLAY=${DISPLAY} 
     volumes:
