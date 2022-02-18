@@ -23,5 +23,3 @@ jobs:
      
     - name: Docker push.
       run: docker push matheusrod98/auv_ws:0.0.1
-      
-    
