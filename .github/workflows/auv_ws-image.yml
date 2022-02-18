@@ -1,4 +1,4 @@
-name: AUV Workspace build and push.
+name: AUV Workspace image
 
 on:
   push:
