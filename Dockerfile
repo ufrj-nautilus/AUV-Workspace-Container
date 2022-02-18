@@ -16,7 +16,7 @@ RUN rosdep init
 RUN rosdep update
 
 # Clone and build the auv workspace.
-RUN --mount=type=secret,id=gh_access_auvws                                                                 \
+RUN --mount=type=secret,id=AUV_WS_ACCESS                                                                   \
     && mkdir -p ~/auv_ws/src                                                                               \
     && cd ~/auv_ws/src                                                                                     \
     && mkdir -p ~/auv_ws/src/robots                                                                        \
