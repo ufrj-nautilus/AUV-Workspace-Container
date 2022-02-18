@@ -17,9 +17,7 @@ jobs:
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       
     - name: Docker build.
-      env:
-        AUV_WS_ACCESS: ${{ secrets.AUV_WS_ACCESS }}
-      run: DOCKER_BUILDKIT=1 docker build --file Dockerfile --tag auv_ws:$(date +%s) --secret id=AUV_WS_ACCESS,src='${AUV_WS_ACCESS}' .
+      run: DOCKER_BUILDKIT=1 docker build --file Dockerfile --tag auv_ws:$(date +%s) --secret id=AUV_WS_ACCESS,src='${{ secrets.AUV_WS_ACCESS }}' .
      
     - name: Docker push.
       run: docker push matheusrod98/auv_ws:0.0.1
