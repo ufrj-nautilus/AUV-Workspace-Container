@@ -27,4 +27,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ github.repository_owner }}/auv_ws:{{ github.ref_name }}
+          tags: auv_ws:{{ github.ref_name }}
