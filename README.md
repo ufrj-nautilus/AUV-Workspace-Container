@@ -12,4 +12,6 @@
     cd auv_ws && ./install.sh
 ## :checkered_flag: Start the container
     
-    cd <your_workspace>/src/auv_ws; docker-compose up -d; docker attach auv_ws
+    cd <your_workspace>/src/auv_ws
+    xhost +local:docker
+    docker-compose up -d; docker attach auv_ws
