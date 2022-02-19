@@ -7,7 +7,9 @@
 <https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>
 # Install
 - Clone the entire workspace<br />
+    
     git clone https://github.com/ufrj-nautilus/auv_ws.git
     cd auv_ws && ./install.sh
 - Start the container<br />
+    
     cd <your_workspace>/src/auv_ws; docker-compose up -d; docker attach auv_ws
