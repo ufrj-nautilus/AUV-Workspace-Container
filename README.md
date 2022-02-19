@@ -9,6 +9,7 @@
     # Clone the entire workspace.
     git clone https://github.com/ufrj-nautilus/auv_ws.git
     cd auv_ws && ./install.sh
+<br />
     
     # Start the container.
     cd <your_workspace>/src/auv_ws; docker-compose up -d; docker attach auv_ws
