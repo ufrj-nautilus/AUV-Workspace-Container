@@ -6,7 +6,8 @@ SHELL ["/bin/bash", "-c"]
 
 # Update the system and install some essential packages.
 RUN apt update && apt upgrade -y
-RUN apt update && apt install -y gnupg wget lsb-release vim tmux libglvnd0 libglvnd-dev x11-apps mesa-utils
+RUN apt update && apt install -y gnupg wget lsb-release vim tmux libglvnd0 libglvnd-dev x11-apps mesa-utils python3-pip
+RUN yes | pip3 install pynput
 
 # Install ROS noetic
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -18,5 +19,8 @@ RUN source /root/.bashrc
 RUN apt update && apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential -y
 RUN rosdep init
 RUN rosdep update
+
+# Configure the environment.
+RUN echo "set -g mouse on" > /root/.tmux.conf
 RUN mkdir -p /root/catkin_ws/src
 WORKDIR /root/catkin_ws
