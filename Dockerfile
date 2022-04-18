@@ -21,9 +21,9 @@ RUN rosdep init
 RUN rosdep update
 
 # auv_gnc dependencies.
-COPY ../control/src/auv_gnc/install_deps.sh /install_deps.sh
+COPY ./install_deps.sh /install_deps.sh
 RUN chmod +x /install_deps.sh
-RUN ./install_deps.sh
+RUN bash /install_deps.sh
 RUN rm -rf /install_deps.sh
 
 # Configure the environment.
