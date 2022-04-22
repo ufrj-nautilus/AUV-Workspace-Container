@@ -17,3 +17,15 @@
     cd <your_workspace>/src/auv_ws
     xhost +local:docker
     docker-compose up -d; docker attach auv_ws
+# Troubleshooting
+## Slow performance on gazebo with a NVIDIA card
+### Add this code block below the `image` tag
+```
+ deploy:
+    resources:
+      reservations:
+        devices:
+        - driver: nvidia
+          capabilities: [gpu]
+```
+### Add the ```docker-compose.yml``` in the ```.gitignore```
