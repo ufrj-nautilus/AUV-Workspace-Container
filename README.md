@@ -19,7 +19,7 @@
     docker-compose up -d; docker attach auv_ws
 # :bug: Troubleshooting
 ##  Slow performance on gazebo with a NVIDIA card
-### Add this code block, on ```docker-compose.yml```, below the `image` tag
+### Add this code block on ```docker-compose.yml``` below the `image` tag
 ```
  deploy:
     resources:
