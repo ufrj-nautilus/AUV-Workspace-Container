@@ -1,4 +1,6 @@
 # Prerequisites
+## ✔️ Install Git LFS
+<https://docs.github.com/pt/repositories/working-with-files/managing-large-files/installing-git-large-file-storage/>
 ## :heavy_check_mark: Install Docker and Docker Compose<br />
 <https://docs.docker.com/engine/install/><br />
 <https://docs.docker.com/compose/install/>
