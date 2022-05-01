@@ -21,11 +21,11 @@
 ##  Slow performance on gazebo with a NVIDIA card
 ### Add this code block in ```docker-compose.yml``` below the `image` tag
 ```
- deploy:
+deploy:
     resources:
-      reservations:
-        devices:
-        - driver: nvidia
-          capabilities: [gpu]
+        reservations:
+            devices:
+                - driver: nvidia
+                    capabilities: [gpu]
 ```
 ### Add the ```docker-compose.yml``` in the ```.gitignore```
