@@ -26,6 +26,6 @@ deploy:
         reservations:
             devices:
                 - driver: nvidia
-                    capabilities: [gpu]
+                  capabilities: [gpu]
 ```
 ### Add the ```docker-compose.yml``` in the ```.gitignore```
