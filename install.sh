@@ -21,4 +21,6 @@ git clone git@github.com:ufrj-nautilus/smach.git
 git clone https://github.com/ufrj-nautilus/auv_ws.git
 git clone --branch noetic-devel git@github.com:tdenewiler/uuv_simulator.git
 cd $HOME/$workspace/catkin_ws/src/utils
+rm -rf pysdf
+git rm --cached pysdf
 git submodule add https://github.com/ufrj-nautilus/pysdf
