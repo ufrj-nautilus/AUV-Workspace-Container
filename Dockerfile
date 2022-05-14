@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-c"]
 
 # Update the system and install some essential packages.
 RUN apt update && apt upgrade -y
-RUN apt update && apt install -y gnupg wget lsb-release vim tmux libglvnd0 libglvnd-dev x11-apps mesa-utils python3-pip
+RUN apt update && apt install -y gnupg wget lsb-release vim tmux libglvnd0 libglvnd-dev x11-apps mesa-utils python3-pip htop
 RUN yes | pip3 install pynput pymap3d
 
 # Install ROS noetic
