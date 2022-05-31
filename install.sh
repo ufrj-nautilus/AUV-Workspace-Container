@@ -18,7 +18,7 @@ git clone git@github.com:ufrj-nautilus/utils.git
 git clone git@github.com:ufrj-nautilus/auv_messages.git
 git clone git@github.com:ufrj-nautilus/localization.git
 git clone git@github.com:ufrj-nautilus/smach.git
-git clone https://github.com/ufrj-nautilus/auv_ws.git
+git clone git@github.com:ufrj-nautilus/auv_ws.git
 git clone --recursive git@github.com:ufrj-nautilus/darknet_ros.git
 git clone --branch noetic-devel git@github.com:tdenewiler/uuv_simulator.git
 cd $HOME/$workspace/catkin_ws/src/utils
