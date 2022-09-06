@@ -1,7 +1,7 @@
 #!/bin/bash
 echo ":: Preparing your environment ::"
 echo ""
-echo -n "What is your username? "
+echo -n "What is your username (local user)? "
 read user
 echo -n "Enter your github email: "
 read email
@@ -47,22 +47,23 @@ arch='Arch'
 ubuntu='Ubuntu'
 alpine='Alpine'
 fedora='Fedora'
+debian='Debian'
 
 if [[ $check == *$arch* ]]; then
- sudo pacman -S git-lfs docker docker-compose
+   sudo pacman -S git-lfs docker docker-compose
 
-elif [[ $check == *$ubuntu* ]]; then
- sudo apt-get install git-lfs docker docker-compose
+elif [[ $check == *$ubuntu* ]] || [[ $check == *Debian* ]]; then
+   sudo apt-get install git-lfs docker docker-compose
 
 elif [[ $check == *$alpine* ]]; then
- sudo apk add git-lfs docker docker-compose
+   sudo apk add git-lfs docker docker-compose
 
 elif [[ $check == *$fedora* ]]; then
- sudo dnf install git-lfs docker docker-compose
+   sudo dnf install git-lfs docker docker-compose
 
 else
- echo "Distro not found"
- exit
+   echo "Distro not found"
+   exit
 fi
 
 xhost +local:docker
@@ -112,5 +113,3 @@ cd utils
 rm -rf pysdf
 git rm --cached pysdf
 git submodule add https://github.com/ufrj-nautilus/pysdf
-
-
