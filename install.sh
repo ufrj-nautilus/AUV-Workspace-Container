@@ -52,7 +52,7 @@ debian='Debian'
 if [[ $check == *$arch* ]]; then
    sudo pacman -S git-lfs docker docker-compose
 
-elif [[ $check == *$ubuntu* ]] || [[ $check == *Debian* ]]; then
+elif [[ $check == *$ubuntu* ]] || [[ $check == *$debian* ]]; then
    sudo apt-get install git-lfs docker docker-compose
 
 elif [[ $check == *$alpine* ]]; then
