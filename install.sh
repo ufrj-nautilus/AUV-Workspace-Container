@@ -59,7 +59,11 @@ elif [[ $check == *$alpine* ]]; then
    sudo apk add git-lfs docker docker-compose
 
 elif [[ $check == *$fedora* ]]; then
-   sudo dnf install git-lfs docker docker-compose
+   sudo dnf install dnf-plugins-core 
+   sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+   sudo dnf install docker-ce docker-ce-cli containerd.io git-lfs docker-compose
+   sudo systemctl start docker
+   sudo systemctl enable docker
 
 else
    echo "Distro not found"
