@@ -1,7 +1,7 @@
 name: AUV Workspace image build and push
 
 on:
-  push:
+  [push, workflow_dispatch]:
     paths:
       'Dockerfile'
 
