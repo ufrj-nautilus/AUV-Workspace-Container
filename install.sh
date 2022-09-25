@@ -1,11 +1,6 @@
 #!/bin/bash
-echo ":: Preparing your environment ::"
-echo ""
-echo -n "What is your username (local user)? "
-read user
 echo -n "Enter your github email: "
 read email
-
 echo "Which ssh key do you want?"
 select key in "rsa" "ed25519"; do
    case $key in
@@ -16,20 +11,18 @@ select key in "rsa" "ed25519"; do
    esac
 done
 
-if [ -f "/home/$user/.ssh/id_$key.pub" ]; then
-   sudo cp /home/$user/.ssh/id_$key.pub /home/$user/sshkey.txt
+if [ -f "$HOME/.ssh/id_$key.pub" ]; then
+   sudo cp $HOME/.ssh/id_$key.pub $HOME/sshkey.txt
 else
    ssh-keygen -t $key -b 4096 -C $email
    eval "$(ssh-agent -s)"
-   ssh-add /home/$user/.ssh/id_$key
-   sudo cp /home/$user/.ssh/id_$key.pub /home/$user/sshkey.txt
+   ssh-add $HOME/.ssh/id_$key
+   sudo cp $HOME/.ssh/id_$key.pub $HOME/sshkey.txt
 fi
 echo ""
-echo $(cat /home/$user/sshkey.txt)
-echo ""
-echo "Your ssh public key is in the home, named as \"sshkey\""
-echo "do it =======> https://github.com/settings/ssh/new"
-echo ""
+echo $(cat $HOME/sshkey.txt)
+echo -e "\nssh public key: $HOME/sshkey.txt\n"
+echo -e "=======> https://github.com/settings/ssh/new\n"
 
 echo "Did you register the key?"
 sleep 3
@@ -41,27 +34,27 @@ select ans in "Yes" "No"; do
          exit;;
    esac
 done
+eval `ssh-agent`
+ssh-add
 
 check=$(egrep '^(VERSION|NAME)=' /etc/os-release)
 arch='Arch'
 ubuntu='Ubuntu'
-alpine='Alpine'
 fedora='Fedora'
 debian='Debian'
 
 if [[ $check == *$arch* ]]; then
-   sudo pacman -S git-lfs docker docker-compose
+   yes | sudo pacman -S git-lfs docker docker-compose
+   sudo sysmtectl start docker
+   sudo systemctl enable docker
 
 elif [[ $check == *$ubuntu* ]] || [[ $check == *$debian* ]]; then
-   sudo apt-get install git-lfs docker docker-compose
-
-elif [[ $check == *$alpine* ]]; then
-   sudo apk add git-lfs docker docker-compose
+   sudo apt-get install git-lfs docker docker-compose -y
 
 elif [[ $check == *$fedora* ]]; then
    sudo dnf install dnf-plugins-core 
    sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-   sudo dnf install docker-ce docker-ce-cli containerd.io git-lfs docker-compose
+   sudo dnf install docker-ce docker-ce-cli containerd.io git-lfs docker-compose -y
    sudo systemctl start docker
    sudo systemctl enable docker
 
@@ -69,7 +62,6 @@ else
    echo "Distro not found"
    exit
 fi
-
 xhost +local:docker
 
 ## INSTALL
