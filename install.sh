@@ -1,23 +1,14 @@
 #!/bin/bash
 echo -n "Enter your github email: "
 read email
-echo "Which ssh key do you want?"
-select key in "rsa" "ed25519"; do
-   case $key in
-      rsa )
-         key=rsa break;;
-      ed25519 )
-         key=ed25519 break;;
-   esac
-done
 
-if [ -f "$HOME/.ssh/id_$key.pub" ]; then
-   sudo cp $HOME/.ssh/id_$key.pub $HOME/sshkey.txt
+if [ -f "$HOME/.ssh/id_rsa.pub" ]; then
+   sudo cp $HOME/.ssh/id_rsa.pub $HOME/sshkey.txt
 else
-   ssh-keygen -t $key -b 4096 -C $email
+   ssh-keygen -t rsa -b 4096 -C $email
    eval "$(ssh-agent -s)"
-   ssh-add $HOME/.ssh/id_$key
-   sudo cp $HOME/.ssh/id_$key.pub $HOME/sshkey.txt
+   ssh-add $HOME/.ssh/id_rsa
+   sudo cp $HOME/.ssh/id_rsa.pub $HOME/sshkey.txt
 fi
 echo ""
 echo $(cat $HOME/sshkey.txt)
@@ -37,7 +28,7 @@ done
 eval `ssh-agent`
 ssh-add
 
-check=$(egrep '^(VERSION|NAME)=' /etc/os-release)
+check=$(grep -E '^(VERSION|NAME)=' /etc/os-release)
 arch='Arch'
 ubuntu='Ubuntu'
 fedora='Fedora'
@@ -45,7 +36,7 @@ debian='Debian'
 
 if [[ $check == *$arch* ]]; then
    yes | sudo pacman -S git-lfs docker docker-compose
-   sudo sysmtectl start docker
+   sudo systemctl start docker
    sudo systemctl enable docker
 
 elif [[ $check == *$ubuntu* ]] || [[ $check == *$debian* ]]; then
