@@ -5,10 +5,11 @@ services:
     container_name: auv_ws
     image: ghcr.io/ufrj-nautilus/auv_ws:master
     privileged: true
+    pull_policy: always
     environment:
       - DISPLAY=${DISPLAY} 
     volumes:
-      - ./../../../catkin_ws:/root/catkin_ws
+      - ./../catkin_ws:/root/catkin_ws
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/localtime:/etc/localtime
     network_mode: host
