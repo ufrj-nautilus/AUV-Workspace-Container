@@ -16,9 +16,10 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install ros-noetic-desktop-
 RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
 RUN echo "source /usr/share/gazebo/setup.sh" >> /root/.bashrc
 RUN source /root/.bashrc
-RUN apt update && apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool python3-serial build-essential meshlab dearpygui -y
+RUN apt update && apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool python3-serial build-essential meshlab -y
 RUN rosdep init
 RUN rosdep update
+RUN pip install dearpygui
 
 # Configure the environment.
 RUN echo "set -g mouse on" >> /root/.tmux.conf
