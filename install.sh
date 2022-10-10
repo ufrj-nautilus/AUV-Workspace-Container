@@ -3,18 +3,14 @@ echo -n "Enter your github email: "
 read email
 
 if [ -f "$HOME/.ssh/id_rsa.pub" ]; then
-   sudo cp $HOME/.ssh/id_rsa.pub $HOME/sshkey.txt
-else
+   cat $HOME/.ssh/id_rsa.pub
+else 
    ssh-keygen -t rsa -b 4096 -C $email
    eval "$(ssh-agent -s)"
    ssh-add $HOME/.ssh/id_rsa
-   sudo cp $HOME/.ssh/id_rsa.pub $HOME/sshkey.txt
+   cat $HOME/.ssh/id_rsa.pub
 fi
-echo ""
-echo $(cat $HOME/sshkey.txt)
-echo -e "\nssh public key: $HOME/sshkey.txt\n"
-echo -e "=======> https://github.com/settings/ssh/new\n"
-
+echo -e "\n=======> https://github.com/settings/ssh/new\n"
 echo "Did you register the key?"
 sleep 3
 select ans in "Yes" "No"; do
@@ -28,31 +24,35 @@ done
 eval `ssh-agent`
 ssh-add
 
-check=$(grep -E '^(VERSION|NAME)=' /etc/os-release)
-arch='Arch'
-ubuntu='Ubuntu'
-fedora='Fedora'
-debian='Debian'
+if [ $(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/ip') ]; then
+   echo "==== Install Docker Desktop > https://www.docker.com/products/docker-desktop/"
+   exit
+fi
 
-if [[ $check == *$arch* ]]; then
+distro=$(grep -E '^(PRETTY_NAME|NAME)=' /etc/os-release)
+if [[ $distro == *'Arch'* ]]; then
    yes | sudo pacman -S git-lfs docker docker-compose
    sudo systemctl start docker
    sudo systemctl enable docker
 
-elif [[ $check == *$ubuntu* ]] || [[ $check == *$debian* ]]; then
+elif [[ $distro == *'Ubuntu'* ]] || [[ $distro == *'Debian'* ]] || [[ $distro == *Mint* ]]; then
    sudo apt-get install git-lfs docker docker-compose -y
-
-elif [[ $check == *$fedora* ]]; then
+elif [[ $distro == *'Fedora'* ]]; then
    sudo dnf install dnf-plugins-core 
    sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
    sudo dnf install docker-ce docker-ce-cli containerd.io git-lfs docker-compose -y
    sudo systemctl start docker
    sudo systemctl enable docker
-
+elif [[ $distro == *'openSUSE'*  ]]; then
+   sudo zypper install docker python3-docker-compose git-lfs
+   sudo systemctl enable docker
 else
    echo "Distro not found"
    exit
 fi
+git lfs install
+sudo groupadd docker
+sudo usermod -aG docker $USER
 xhost +local:docker
 
 ## INSTALL
