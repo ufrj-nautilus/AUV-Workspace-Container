@@ -1,20 +1,14 @@
 FROM ros:noetic-ros-base-focal
 
-# Shell to be used during the build process and the container's default.
-SHELL ["/bin/bash", "-c"]
-
 # Update the system and install some essential packages.
-RUN apt update && apt upgrade -y
-RUN apt update && apt install -y gnupg wget lsb-release vim tmux libglvnd0 libglvnd-dev x11-apps mesa-utils python3-pip htop
-RUN yes | pip3 install pynput pymap3d
+RUN apt update && apt install -y vim tmux  x11-apps mesa-utils python3-pip htop
+RUN yes | pip3 install pynput pymap3d dearpygui
 
-# Install ROS noetic additional dependencies
-RUN wget -q https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc -O- | apt-key add -
+# Settings ROS develepment environment
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install ros-noetic-desktop-full ros-noetic-rtabmap-ros ros-noetic-robot-localization liburdfdom-tools -y
 RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
 RUN echo "source /usr/share/gazebo/setup.sh" >> /root/.bashrc
-RUN source /root/.bashrc
-RUN apt update && apt install python3-rosinstall-generator python3-wstool python3-serial -y
+RUN apt update && apt install python3-rosinstall-generator python3-wstool python3-serial meshlab -y
 
 
 # Configure the environment.
@@ -23,3 +17,4 @@ RUN echo "set-option -g history-limit 20000" >> /root/.tmux.conf
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 RUN mkdir -p /root/catkin_ws/src
 WORKDIR /root/catkin_ws
+
