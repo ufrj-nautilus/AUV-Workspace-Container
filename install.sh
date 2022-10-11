@@ -1,4 +1,7 @@
 #!/bin/bash
+lowerms=$(uname -r | tr '[:upper:]' '[:lower:]')
+distro=$(grep -E '^(PRETTY_NAME|NAME)=' /etc/os-release)
+
 installg(){
 echo -e "\nChoose where you want to store the AUV workspace, leave it blank for $HOME/catkin_ws"
 echo -n "mkdir -p $HOME/"
@@ -43,38 +46,8 @@ git rm --cached pysdf
 git submodule add https://github.com/ufrj-nautilus/pysdf
 }
 
-echo -n "Enter your github email: "
-read email
-
-if [ -f "$HOME/.ssh/id_rsa.pub" ]; then
-   cat $HOME/.ssh/id_rsa.pub
-else 
-   ssh-keygen -t rsa -b 4096 -C $email
-   eval "$(ssh-agent -s)"
-   ssh-add $HOME/.ssh/id_rsa
-   cat $HOME/.ssh/id_rsa.pub
-fi
-echo -e "\n=======> https://github.com/settings/ssh/new\n"
-echo "Did you register the key?"
-sleep 3
-select ans in "Yes" "No"; do
-   case $ans in
-      Yes )
-         break;;
-      No )
-         exit;;
-   esac
-done
-eval `ssh-agent`
-ssh-add
-
-distro=$(grep -E '^(PRETTY_NAME|NAME)=' /etc/os-release)
-if [ $(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/ip') ]; then
-   sudo apt-get install git-lfs -y
-   git lfs install
-   installg
-   exit
-elif [[ $distro == *'Arch'* ]]; then
+fdistro(){
+if [[ $distro == *'Arch'* ]] || [[ $distro == *'Manjaro'* ]]; then
    yes | sudo pacman -S git-lfs docker docker-compose
    sudo systemctl start docker
    sudo systemctl enable docker
@@ -93,6 +66,43 @@ else
    echo "Distro not found"
    exit
 fi
+}
+
+echo -n "Enter your github email: "
+read email
+
+if [ -f "$HOME/.ssh/id_rsa.pub" ]; then
+   cat $HOME/.ssh/id_rsa.pub
+else 
+   ssh-keygen -t rsa -b 4096 -C $email
+   eval "$(ssh-agent -s)"
+   ssh-add $HOME/.ssh/id_rsa
+   cat $HOME/.ssh/id_rsa.pub
+fi
+echo -e "\n===> https://github.com/settings/ssh/new\n"
+echo "Did you register the key?"
+sleep 3
+select ans in "Yes" "No"; do
+   case $ans in
+      Yes )
+         break;;
+      No )
+         exit;;
+   esac
+done
+eval `ssh-agent`
+ssh-add
+
+if [[ $lowerms == *'microsoft'* ]]; then
+   fdistro
+   git lfs install
+   installg
+   echo -e "\n==> Install Docker Desktop: https://www.docker.com/products/docker-desktop/\n"
+   exit
+else
+   fdistro
+fi
+
 git lfs install
 sudo groupadd docker
 sudo usermod -aG docker $USER
