@@ -1,8 +1,12 @@
 #!/bin/bash
-lowerms=$(uname -r | tr '[:upper:]' '[:lower:]')
+distro_filter=$(uname -r | tr '[:upper:]' '[:lower:]')
 distro=$(grep -E '^(PRETTY_NAME|NAME)=' /etc/os-release)
+BOLD=$(tput bold)
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NORMAL='\033[0m'
 
-installg(){
+pull_codebase(){
 echo -e "\nChoose where you want to store the AUV workspace, leave it blank for $HOME/catkin_ws"
 echo -n "mkdir -p $HOME/"
 read workspace
@@ -12,7 +16,7 @@ cd $HOME/$workspace/catkin_ws/src
 mkdir -p $HOME/$workspace/catkin_ws/src/robots
 mkdir -p $HOME/$workspace/catkin_ws/src/actuators
 
-r=(
+repo_list=(
    "gripper"
    "marker_dropper"
    "torpedo"
@@ -26,8 +30,8 @@ r=(
    "smach"
    "auv_ws"
 )
-for gg in ${r[@]}; do
-   git clone git@github.com:ufrj-nautilus/$gg.git
+for repo in ${repo_list[@]}; do
+   git clone git@github.com:ufrj-nautilus/$repo.git
 done
 
 mv gripper actuators/
@@ -46,7 +50,7 @@ git rm --cached pysdf
 git submodule add https://github.com/ufrj-nautilus/pysdf
 }
 
-fdistro(){
+find_distro(){
 if [[ $distro == *'Arch'* ]] || [[ $distro == *'Manjaro'* ]]; then
    yes | sudo pacman -S git-lfs docker docker-compose
    sudo systemctl start docker
@@ -59,7 +63,7 @@ elif [[ $distro == *'Fedora'* ]]; then
    sudo dnf install docker-ce docker-ce-cli containerd.io git-lfs docker-compose -y
    sudo systemctl start docker
    sudo systemctl enable docker
-elif [[ $distro == *'openSUSE'*  ]]; then
+elif [[ $distro == *'openSUSE'* ]]; then
    sudo zypper install docker python3-docker-compose git-lfs
    sudo systemctl enable docker
 else
@@ -79,8 +83,8 @@ else
    ssh-add $HOME/.ssh/id_rsa
    cat $HOME/.ssh/id_rsa.pub
 fi
-echo -e "\n===> https://github.com/settings/ssh/new\n"
-echo "Did you register the key?"
+echo -e "\n## ==> https://github.com/settings/ssh/new\n"
+echo -e "${YELLOW}Did you register the key?${NORMAL}"
 sleep 3
 select ans in "Yes" "No"; do
    case $ans in
@@ -93,18 +97,19 @@ done
 eval `ssh-agent`
 ssh-add
 
-if [[ $lowerms == *'microsoft'* ]]; then
-   fdistro
+if [[ $distro_filter == *'microsoft'* ]]; then
+   find_distro
    git lfs install
-   installg
-   echo -e "\n==> Install Docker Desktop: https://www.docker.com/products/docker-desktop/\n"
+   pull_codebase
+   echo -e "#####\n#####\n## ==> ${YELLOW}Install Docker Desktop:${NORMAL} https://www.docker.com/products/docker-desktop/\n#####\n#####"
    exit
 else
-   fdistro
+   find_distro
 fi
 
 git lfs install
 sudo groupadd docker
 sudo usermod -aG docker $USER
 xhost +local:docker
-installg
+pull_codebase
+echo -e "#####\n#####\n##${RED} WARNING:${NORMAL} You need to run ${BOLD}xhost +local:docker${NORMAL} on every boot.\n#####\n#####"
