@@ -3,7 +3,7 @@ services:
 
   auv_ws:
     container_name: auv_ws
-    image: ghcr.io/ufrj-nautilus/auv_ws:master
+    image: ubuntu
     privileged: true
     environment:
       - DISPLAY=${DISPLAY} 
