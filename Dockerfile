@@ -8,10 +8,7 @@ RUN yes | pip3 install pynput pymap3d dearpygui
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-rtabmap-ros ros-noetic-robot-localization liburdfdom-tools
 
 # auv_gnc dependencies.
-COPY ./install_deps.sh /install_deps.sh
-RUN chmod +x /install_deps.sh
-RUN bash /install_deps.sh
-RUN rm -rf /install_deps.sh
+apt update && apt -y install cmake libgoogle-glog-dev libatlas-base-dev libsuitesparse-dev libeigen3-dev libceres-dev cppad libboost-all-dev build-essential python3-catkin-tools
 
 # Configure the environment.
 RUN echo "set -g mouse on" >> /root/.tmux.conf
