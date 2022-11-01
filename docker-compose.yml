@@ -3,7 +3,7 @@ services:
 
   auv_ws:
     container_name: auv_ws
-    image: ubuntu
+    image: ghcr.io/ufrj-nautilus/auv_ws:master
     privileged: true
     pull_policy: always
     environment:
