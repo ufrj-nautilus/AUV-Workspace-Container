@@ -12,4 +12,5 @@ RUN echo "set -g mouse on" >> /root/.tmux.conf
 RUN echo "set-option -g history-limit 20000" >> /root/.tmux.conf
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 RUN mkdir -p /root/catkin_ws/src
+RUN pip install -r /root/catkin_ws/src/auv_ws/requirements.txt
 WORKDIR /root/catkin_ws
