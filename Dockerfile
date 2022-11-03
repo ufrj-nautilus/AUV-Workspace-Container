@@ -4,7 +4,6 @@ FROM osrf/ros:noetic-desktop-full-focal
 RUN apt update && apt install -y vim tmux x11-apps mesa-utils python3-pip htop
 
 # Settings ROS development environment
-RUN yes | pip3 install pynput pymap3d dearpygui
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-rtabmap-ros ros-noetic-robot-localization liburdfdom-tools
 
 # Configure the environment.
