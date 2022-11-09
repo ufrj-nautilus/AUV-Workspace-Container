@@ -7,69 +7,69 @@ YELLOW='\033[1;33m'
 NORMAL='\033[0m'
 
 pull_codebase(){
-echo -e "\nChoose where you want to store the AUV workspace, leave it blank for $HOME/catkin_ws"
-echo -n "mkdir -p $HOME/"
-read workspace
+   echo -e "\nChoose where you want to store the AUV workspace, leave it blank for $HOME/catkin_ws"
+   echo -n "mkdir -p $HOME/"
+   read workspace
 
-mkdir -p $HOME/$workspace/catkin_ws/src
-cd $HOME/$workspace/catkin_ws/src
-mkdir -p $HOME/$workspace/catkin_ws/src/robots
-mkdir -p $HOME/$workspace/catkin_ws/src/actuators
+   mkdir -p $HOME/$workspace/catkin_ws/src
+   cd $HOME/$workspace/catkin_ws/src
+   mkdir -p $HOME/$workspace/catkin_ws/src/robots
+   mkdir -p $HOME/$workspace/catkin_ws/src/actuators
 
-repo_list=(
-   "gripper"
-   "marker_dropper"
-   "torpedo"
-   "auv_simulator"
-   "control"
-   "brhue"
-   "lua"
-   "utils"
-   "auv_messages"
-   "localization"
-   "smach"
-   "auv_ws"
-)
-for repo in ${repo_list[@]}; do
-   git clone git@github.com:ufrj-nautilus/$repo.git
-done
+   repo_list=(
+      "gripper"
+      "marker_dropper"
+      "torpedo"
+      "auv_simulator"
+      "control"
+      "brhue"
+      "lua"
+      "utils"
+      "auv_messages"
+      "localization"
+      "smach"
+      "auv_ws"
+   )
+   for repo in ${repo_list[@]}; do
+      git clone git@github.com:ufrj-nautilus/$repo.git
+   done
 
-mv gripper actuators/
-mv marker_dropper actuators/
-mv torpedo actuators/
+   mv gripper actuators/
+   mv marker_dropper actuators/
+   mv torpedo actuators/
 
-mv brhue robots/
-mv lua robots/
+   mv brhue robots/
+   mv lua robots/
 
-git clone --recursive git@github.com:ufrj-nautilus/darknet_ros.git
-git clone --branch noetic-devel git@github.com:tdenewiler/uuv_simulator.git
+   git clone --recursive git@github.com:ufrj-nautilus/darknet_ros.git
+   git clone --branch noetic-devel git@github.com:tdenewiler/uuv_simulator.git
 
-cd utils
-rm -rf pysdf
-git rm --cached pysdf
-git submodule add https://github.com/ufrj-nautilus/pysdf
+   cd utils
+   rm -rf pysdf
+   git rm --cached pysdf
+   git submodule add https://github.com/ufrj-nautilus/pysdf
 }
 
 find_distro(){
-if [[ $distro == *'Arch'* ]] || [[ $distro == *'Manjaro'* ]]; then
-   yes | sudo pacman -S git-lfs docker docker-compose
-   sudo systemctl start docker
-   sudo systemctl enable docker
-elif [[ $distro == *'Ubuntu'* ]] || [[ $distro == *'Debian'* ]] || [[ $distro == *'Mint'* ]]; then
-   sudo apt-get install git-lfs docker docker-compose -y
-elif [[ $distro == *'Fedora'* ]]; then
-   sudo dnf install dnf-plugins-core 
-   sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-   sudo dnf install docker-ce docker-ce-cli containerd.io git-lfs docker-compose -y
-   sudo systemctl start docker
-   sudo systemctl enable docker
-elif [[ $distro == *'openSUSE'* ]]; then
-   sudo zypper install docker python3-docker-compose git-lfs
-   sudo systemctl enable docker
-else
-   echo "Distro not found"
-   exit
-fi
+   if [[ $distro == *'Arch'* ]] || [[ $distro == *'Manjaro'* ]]; then
+      yes | sudo pacman -S git-lfs docker docker-compose
+      sudo systemctl start docker
+      sudo systemctl enable docker
+   elif [[ $distro == *'Ubuntu'* ]] || [[ $distro == *'Debian'* ]] || [[ $distro == *'Mint'* ]]; then
+      sudo apt-get install git-lfs docker docker-compose -y
+   elif [[ $distro == *'Fedora'* ]]; then
+      sudo dnf install dnf-plugins-core 
+      sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+      sudo dnf install docker-ce docker-ce-cli containerd.io git-lfs docker-compose -y
+      sudo systemctl start docker
+      sudo systemctl enable docker
+   elif [[ $distro == *'openSUSE'* ]]; then
+      sudo zypper install docker python3-docker-compose git-lfs
+      sudo systemctl enable docker
+   else
+      echo "Distro not found"
+      exit
+   fi
 }
 
 echo -n "Enter your github email: "
@@ -84,16 +84,19 @@ else
    cat $HOME/.ssh/id_rsa.pub
 fi
 echo -e "\n## ==> https://github.com/settings/ssh/new\n"
-echo -e "${YELLOW}Did you register the key?${NORMAL}"
 sleep 3
-select ans in "Yes" "No"; do
-   case $ans in
-      Yes )
-         break;;
-      No )
-         exit;;
-   esac
-done
+echo -e "${YELLOW}Did you register the key?${NORMAL} (y/n)"
+while true; do 
+   read -p "" yn
+   case $yn in
+      [yY] )
+         break ;;
+      [nN] ) 
+         exit ;;
+      * )
+         echo -e "\n>Invalid option\n" ;;
+      esac
+   done
 eval `ssh-agent`
 ssh-add
 
