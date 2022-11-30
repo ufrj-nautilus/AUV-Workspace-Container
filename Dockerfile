@@ -4,7 +4,7 @@ FROM osrf/ros:noetic-desktop-full-focal
 RUN apt update && apt install -y vim tmux x11-apps mesa-utils python3-pip htop
 
 # Settings ROS development environment
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-rtabmap-ros ros-noetic-robot-localization liburdfdom-tools
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-rtabmap-ros ros-noetic-robot-localization liburdfdom-tools python3-catkin-tools
 
 # Configure the environment.
 RUN echo "set -g mouse on" >> /root/.tmux.conf
