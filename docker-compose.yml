@@ -4,7 +4,7 @@ services:
   landside:
     profiles:
       - auv_ws
-    container_name: auv_ws
+    container_name: auv_ws_teste
     image: ghcr.io/ufrj-nautilus/auv_ws:master
     privileged: true
     pull_policy: always
