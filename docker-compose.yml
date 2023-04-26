@@ -2,6 +2,8 @@ version: '3'
 services:
 
   landside:
+    profiles:
+      - auv_ws
     container_name: auv_ws
     image: ghcr.io/ufrj-nautilus/auv_ws:master
     privileged: true
@@ -17,14 +19,18 @@ services:
     tty: true
   
   onBoard:
-    container_name: jetson
-    image: 
+    image: inside_AUV
+    build: ./onBoard.Dockerfile
+    profiles:
+      - jetson
+    container_name: jetson_ws
+ 
     privileged: true
     pull_policy: always
     environment:
       - DISPLAY=${DISPLAY} 
     volumes:
-      #             2 volumes to avoid building unecessary packages
+      # Don't know how to avoid building unecessary packages
       #- ./../catkin_ws/:/root/
       #- blank
       - /tmp/.X11-unix:/tmp/.X11-unix
