@@ -30,7 +30,7 @@ jobs:
           context: .
           file: Dockerfile.landside
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ github.ref }}-landside
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}-landside
 
       - name: Build and push the onboard Docker image
         uses: docker/build-push-action@v2
@@ -38,5 +38,5 @@ jobs:
           context: .
           file: Dockerfile.onBoard
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ github.ref }}-onboard
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}-onboard
           platforms: linux/arm/v8
