@@ -1,0 +1,27 @@
+FROM osrf/ros:noetic-desktop-full-focal
+
+# Installing Ubuntu dependencies
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y vim tmux x11-apps \
+							mesa-utils python3-pip htop
+
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-rtabmap-ros \
+							ros-noetic-robot-localization \
+							liburdfdom-tools
+
+# Installing auv_gnc dependencies
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-glog-dev \
+							libatlas-base-dev libsuitesparse-dev \
+							libeigen3-dev libceres-dev cppad \
+							libboost-all-dev build-essential \
+							python3-catkin-tools
+
+# Setting up Teensy
+COPY ./49-teensy.rules /etc/udev/rules.d/49-teensy.rules 
+
+# Configure the environment
+RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
+RUN echo "set -g mouse on" >> /root/.tmux.conf
+RUN echo "set-option -g history-limit 20000" >> /root/.tmux.conf
+COPY ./requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+RUN mkdir -p /root/catkin_ws/src

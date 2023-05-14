@@ -1,17 +1,34 @@
 version: '3'
 services:
 
-  auv_ws:
-    container_name: auv_ws
-    image: ghcr.io/ufrj-nautilus/auv_ws:master
+  landside:
+    container_name: auv_ws_landiside
+    image: ghcr.io/ufrj-nautilus/auv_ws:landside:master
     privileged: true
     pull_policy: always
     environment:
       - DISPLAY=${DISPLAY} 
     volumes:
-      - ./../../src/:/root/catkin_ws/src
+      - ./../catkin_ws/:/root/catkin_ws
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/localtime:/etc/localtime
+      - /dev:/dev
+    network_mode: host
+    stdin_open: true
+    tty: true
+  
+  onBoard:
+    image: ghcr.io/ufrj-nautilus/auv_ws:onBoard:master
+    container_name: auv_ws_onboard
+    privileged: true
+    pull_policy: always
+    environment:
+      - DISPLAY=${DISPLAY} 
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/localtime:/etc/localtime
+      - /dev:/dev
+      - ./../catkin_ws/:/root/catkin_ws
     network_mode: host
     stdin_open: true
     tty: true
