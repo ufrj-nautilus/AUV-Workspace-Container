@@ -17,7 +17,6 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-
 
 # Setting up Teensy
 COPY ./49-teensy.rules /etc/udev/rules.d/49-teensy.rules 
-RUN sudo cp 49-teensy.rules /etc/udev/rules.d/49-teensy.rules
 
 # Configure the environment
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
