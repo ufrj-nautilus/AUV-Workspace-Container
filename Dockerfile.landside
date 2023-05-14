@@ -6,7 +6,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y vim tmux x11-app
 
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-rtabmap-ros \
 							ros-noetic-robot-localization \
-							liburdfdom-tools python3-catkin-tools
+							liburdfdom-tools
 
 # Installing auv_gnc dependencies
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-glog-dev \
@@ -22,7 +22,6 @@ COPY ./49-teensy.rules /etc/udev/rules.d/49-teensy.rules
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 RUN echo "set -g mouse on" >> /root/.tmux.conf
 RUN echo "set-option -g history-limit 20000" >> /root/.tmux.conf
-RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 COPY ./requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN mkdir -p /root/catkin_ws/src
