@@ -2,7 +2,7 @@ FROM osrf/ros:noetic-desktop-full-focal
 
 # Installing Ubuntu dependencies
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y vim tmux x11-apps \
-							mesa-utils python3-pip htop
+							mesa-utils python3-pip htop git-lfs
 
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-rtabmap-ros \
 							ros-noetic-robot-localization \
@@ -14,9 +14,6 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-
 							libeigen3-dev libceres-dev cppad \
 							libboost-all-dev build-essential \
 							python3-catkin-tools
-
-# Setting up Teensy
-COPY ./49-teensy.rules /etc/udev/rules.d/49-teensy.rules 
 
 # Configure the environment
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc

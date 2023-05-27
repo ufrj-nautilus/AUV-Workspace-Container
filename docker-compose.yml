@@ -17,7 +17,7 @@ services:
     stdin_open: true
     tty: true
   
-  onBoard:
+  onboard:
     image: ghcr.io/ufrj-nautilus/auv_ws:master-onboard
     container_name: auv_onboard
     privileged: true
