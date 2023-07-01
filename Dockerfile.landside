@@ -15,6 +15,16 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-
 							libboost-all-dev build-essential \
 							python3-catkin-tools
 
+# Installing ORB-SLAM3-ROS dependencies
+RUN cd ~ &&\
+    git clone https://github.com/stevenlovegrove/Pangolin.git &&\
+    cd Pangolin &&\
+    mkdir build && cd build &&\
+    cmake .. &&\
+    make &&\
+    sudo make install &&\
+
+
 # Configure the environment
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 RUN echo "set -g mouse on" >> /root/.tmux.conf
