@@ -24,6 +24,11 @@ RUN cd ~ &&\
     make &&\
     sudo make install &&\
 
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-hector-trajectory-server &&\
+    cd ~/catkin_ws/src &&\
+    git clone https://github.com/thien94/orb_slam3_ros.git &&\
+    cd ../ &&\
+    catkin build &&\
 
 # Configure the environment
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
