@@ -22,7 +22,7 @@ RUN cd ~ &&\
     mkdir build && cd build &&\
     cmake .. &&\
     make &&\
-    sudo make install &&\
+    sudo make install
 
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-hector-trajectory-server
 
