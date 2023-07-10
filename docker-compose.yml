@@ -3,7 +3,7 @@ services:
 
   landside:
     container_name: auv_landside
-    image: ghcr.io/ufrj-nautilus/auv_ws:master-landside
+    image: ghcr.io/ufrj-nautilus/auv_ws:orbslam3-landside
     privileged: true
     #pull_policy: always
     environment:
@@ -18,7 +18,7 @@ services:
     tty: true
   
   onboard:
-    image: ghcr.io/ufrj-nautilus/auv_ws:master-onboard
+    image: ghcr.io/ufrj-nautilus/auv_ws:orbslam3-onboard
     container_name: auv_onboard
     privileged: true
     pull_policy: always
