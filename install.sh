@@ -16,7 +16,7 @@ git clone git@github.com:ufrj-nautilus/brhue.git $HOME/$workspace/catkin_ws/src/
 git clone git@github.com:ufrj-nautilus/lua.git $HOME/$workspace/catkin_ws/src/robots/lua
 git clone git@github.com:ufrj-nautilus/utils.git
 git clone git@github.com:ufrj-nautilus/auv_messages.git
-git clone git@github.com:ufrj-nautilus/localization.git
+git clone -b orbslam3 git@github.com:ufrj-nautilus/localization.git
 git clone git@github.com:ufrj-nautilus/smach.git
 git clone git@github.com:ufrj-nautilus/auv_ws.git
 git clone --recursive git@github.com:ufrj-nautilus/darknet_ros.git
