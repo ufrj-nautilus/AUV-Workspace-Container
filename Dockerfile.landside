@@ -4,6 +4,9 @@ FROM osrf/ros:noetic-desktop-full-focal
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y vim tmux x11-apps \
 							mesa-utils python3-pip htop git-lfs
 
+#Installing VScode
+RUN apt update && DEBIAN_FRONTEND=noninteractive sudo apt install code -y
+
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-rtabmap-ros \
 							ros-noetic-robot-localization \
 							liburdfdom-tools
