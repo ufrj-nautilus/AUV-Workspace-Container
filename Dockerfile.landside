@@ -15,6 +15,13 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-
 							libboost-all-dev build-essential \
 							python3-catkin-tools
 
+# usb_cam dependencies
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y v4l-utils
+
+# bad coder dependencies (vscode)
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y code
+
+
 # Configure the environment
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 RUN echo "set -g mouse on" >> /root/.tmux.conf
