@@ -4,6 +4,11 @@ FROM arm64v8/ros:noetic-perception-focal
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y vim tmux x11-apps \
                                                     mesa-utils python3-pip htop
 
+<<<<<<< HEAD
+=======
+#Installing VScode
+RUN apt update && DEBIAN_FRONTEND=noninteractive sudo apt install code -y
+>>>>>>> 4108bd5bd20c831c958a5b8e397bf493de66e33c
 
 
 

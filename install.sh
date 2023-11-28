@@ -12,6 +12,7 @@ git clone git@github.com:ufrj-nautilus/marker_dropper.git $HOME/$workspace/catki
 git clone git@github.com:ufrj-nautilus/torpedo.git $HOME/$workspace/catkin_ws/src/actuators/torpedo
 git clone git@github.com:ufrj-nautilus/auv_simulator.git
 git clone git@github.com:ufrj-nautilus/control.git
+git clone git@github.com:ufrj-nautilus/brhue_control.git
 git clone git@github.com:ufrj-nautilus/brhue.git $HOME/$workspace/catkin_ws/src/robots/brhue
 git clone git@github.com:ufrj-nautilus/lua.git $HOME/$workspace/catkin_ws/src/robots/lua
 git clone git@github.com:ufrj-nautilus/utils.git

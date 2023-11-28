@@ -5,7 +5,7 @@ services:
     container_name: auv_landside
     image: ghcr.io/ufrj-nautilus/auv_ws:master-landside
     privileged: true
-    pull_policy: always
+    #pull_policy: always
     environment:
       - DISPLAY=${DISPLAY} 
     volumes:
@@ -21,7 +21,7 @@ services:
     image: ghcr.io/ufrj-nautilus/auv_ws:master-onboard
     container_name: auv_onboard
     privileged: true
-    pull_policy: always
+    #pull_policy: always
     environment:
       - DISPLAY=${DISPLAY} 
     volumes:
