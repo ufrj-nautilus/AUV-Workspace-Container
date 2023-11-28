@@ -4,6 +4,9 @@ FROM arm64v8/ros:noetic-perception-focal
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y vim tmux x11-apps \
                                                     mesa-utils python3-pip htop
 
+
+
+
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-rtabmap-ros \
                                                     ros-noetic-robot-localization \
                                                     liburdfdom-tools
@@ -14,8 +17,8 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-
                                                     libeigen3-dev libceres-dev cppad \
                                                     libboost-all-dev build-essential \
                                                     python3-catkin-tools
-# Camera dependencies
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y   v4l-utils ffmepg\
+# usb_cam dependencies
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y v4l-utils
 
 # Configure the environment
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
