@@ -19,7 +19,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y v4l-utils
 
 # bad coder dependencies (vscode)
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y code
+RUN snap install codium
 
 
 # Configure the environment
