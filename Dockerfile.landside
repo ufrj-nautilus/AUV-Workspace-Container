@@ -24,15 +24,6 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y git
 # ORB-SLAM3-ROS prerequisits
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y libeigen3-dev
 
-# pangolin install from source
-RUN cd ~
-RUN git clone https://github.com/stevenlovegrove/Pangolin.git
-RUN cd Pangolin
-RUN mkdir build && cd build
-RUN cmake ..
-RUN make
-RUN make install
-
 # bad coder dependencies (vscode)
 #RUN snap install codium --classic
 
