@@ -16,6 +16,8 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-
                                                     libeigen3-dev libceres-dev cppad \
                                                     libboost-all-dev build-essential \
                                                     python3-catkin-tools
+						    keyboard
+						    kbd
 # usb_cam dependencies
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y v4l-utils
 
@@ -36,6 +38,10 @@ RUN make
 RUN make install
 
 WORKDIR "/"
+
+# hector-trajectory-server
+
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetichector-trajectory-server
 
 # Configure the environment
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
