@@ -39,7 +39,7 @@ WORKDIR "/"
 
 # hector-trajectory-server
 
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetichector-trajectory-server
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-hector-trajectory-server
 
 # Configure the environment
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
