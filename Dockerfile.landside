@@ -27,6 +27,20 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y libeigen3-dev
 # bad coder dependencies (vscode)
 #RUN snap install codium --classic
 
+# pangolin install from source
+WORKDIR "~"
+RUN git clone https://github.com/stevenlovegrove/Pangolin.git
+WORKDIR "Pangolin"
+RUN mkdir build
+WORKDIR "build"
+RUN cmake ..
+RUN make
+RUN make install
+
+WORKDIR "/"
+
+# hector-trajectory-server
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y ros-noetic-hector-trajectory-server
 
 # Configure the environment
 RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
