@@ -21,6 +21,7 @@ git clone git@github.com:ufrj-nautilus/auv_messages.git
 git clone git@github.com:ufrj-nautilus/localization.git
 git clone git@github.com:ufrj-nautilus/smach.git
 git clone git@github.com:ufrj-nautilus/uuv_simulator.git
+git clone git@github.com:ufrj-nautilus/orb_slam3_ros.git
 cd $HOME/$workspace/catkin_ws/src/utils
 rm -rf pysdf
 git rm --cached pysdf
