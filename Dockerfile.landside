@@ -16,7 +16,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-
 							python3-catkin-tools
 
 # usb_cam dependencies
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y v4l-utils
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y libv4l-dev
 
 # Git dependencies
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y git
