@@ -38,9 +38,8 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y git
 # RUN cmake --build .
 
 # Install cv_bridge dependencies
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y python3-numpy libboost-python-dev
-#cv_bridge dependencies opencv?
-RUN apt install libopencv-dev
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y python3-numpy libboost-python-dev libopencv-dev
+
 
 # pangolin install from source
 #WORKDIR "/root"
