@@ -18,6 +18,9 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y cmake libgoogle-
 # usb_cam dependencies
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y libv4l-dev
 
+#cv_bridge dependencies opencv?
+RUN apt install libopencv-dev
+
 # Git dependencies
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y git
 

@@ -26,19 +26,21 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y git
 #RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y libeigen3-dev
 
 # OpenCV3+ dependencies
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y g++ wget unzip
+# RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y g++ wget unzip
 
 # Install OpenCV3+ from source https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html
-WORKDIR "/root"
-RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.x.zip
-RUN unzip opencv.zip
-RUN mkdir build
-WORKDIR "/root/build"
-RUN cmake ../opencv-4.x
-RUN cmake --build .
+# WORKDIR "/root"
+# RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.x.zip
+# RUN unzip opencv.zip
+# RUN mkdir build
+# WORKDIR "/root/build"
+# RUN cmake ../opencv-4.x
+# RUN cmake --build .
 
 # Install cv_bridge dependencies
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y python3-numpy libboost-python-dev
+#cv_bridge dependencies opencv?
+RUN apt install libopencv-dev
 
 # pangolin install from source
 #WORKDIR "/root"
